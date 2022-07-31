@@ -16,9 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://Scenes/Global.tscn"
-MenuGame="*res://Scripts/MenuGame/Buttoms/MenuGame.cs"
-PrologueGame="*res://Scenes/PrologueGame.tscn"
+Global="*res://Scripts/MenuGame/Global.cs"
 
 [input]
 

@@ -7,35 +7,12 @@ public class MenuGame : Godot.Node
 	// public Node currentScene {get; set;}
 	[Export]
 	public string level;
-	// [Export]
-	// public string levelName;
-	
-	// public override void _Ready()
-	// {
-	// 	var Viewport = GetTree().GetRoot();
-	// 	currentScene = GetChild(GetChildCount() -1 );
-	// 	GD.Print(currentScene);
-	// }
-
-	// public void GotoScene(string path)
-	// {
-	// 	CallDeferred(nameof(DeferredGotoScene), path);
-	// }
-
-	// public void DeferredGotoScene(string path)
-	// {
-	// 	currentScene.Free();
-
-	// 	var nextScene = (PackedScene)GD.Load(path);
-	// 	currentScene = nextScene.Instance();
-
-	// 	GetTree().SetCurrentScene(currentScene);
-	// }
+	[Export]
+	public string levelName = "PrologueGame";
 
 	public void OnGamePressed()
 	{
 		var global = GetNode<Global>("/root/Global");
-		GD.Print(global);
-		global.GotoScene("res://Scenes/PrologueGame.tscn");
+		global.GotoScene("res://Scenes/"+levelName+".tscn");
 	}
 }

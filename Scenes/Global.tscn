@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scenes/Global.cs" type="Script" id=2]
+[ext_resource path="res://Scenes/MenuGame.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/MenuGame/Global.cs" type="Script" id=2]
 
 [node name="Global" type="Node"]
 script = ExtResource( 2 )
+currentScene = ExtResource( 1 )

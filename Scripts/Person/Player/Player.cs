@@ -19,23 +19,37 @@ public class Player : KinematicBody
 	public float rotX = 0f;
 	[Export]
 	public float rotY = 0f;
+	[Export]
+	public string levelNameMenu;
+	[Export]
+	public bool set = false;
 	public Vector3 posY = new Vector3(0,1,0); 
 
 	private Vector3 _velocity = Vector3.Zero;
 
 	public override void _Ready()
 	{
-		Input.SetMouseMode(Input.MouseMode.Captured);
+		
 	}
 
 	public override void _Process(float delta)
 	{
+		if (set == true)
+		{
+			Input.SetMouseMode(Input.MouseMode.Captured);
+			GetNode<Control>("../Control").Hide();
+		}
+		else
+		{
+			Input.SetMouseMode(Input.MouseMode.Visible);
+			GetNode<Control>("../Control").Show();
+		}
 		var direction = Vector3.Zero;
 		// direction.y = gravity;
 
 		if (Input.IsActionJustPressed("ui_cancel"))
 		{
-			GetTree().Quit();
+			set = !set;
 		}
 
 		if (Input.IsActionPressed("move_right"))
@@ -104,53 +118,57 @@ public class Player : KinematicBody
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseMotion mouseMotion)
+		if (set == true)
 		{
-			// modify accumulated mouse rotation
-			rotX -= mouseMotion.Relative.x * speedRot;
-			rotY += mouseMotion.Relative.y * speedRot;
+			if (@event is InputEventMouseMotion mouseMotion)
+			{
+				// modify accumulated mouse rotation
+				rotX -= mouseMotion.Relative.x * speedRot;
+				rotY += mouseMotion.Relative.y * speedRot;
 
-			// reset rotation
-			Transform transform = Transform;
-			transform.basis = Basis.Identity;
-			Transform = transform;
-			var Euler = GetNode<Spatial>("Euler");
+				// reset rotation
+				Transform transform = Transform;
+				transform.basis = Basis.Identity;
+				Transform = transform;
+				var Euler = GetNode<Spatial>("Euler");
 
-			if (rotY > 1f)
-			{
-				RotateObjectLocal(Vector3.Up, rotX);
-				GD.Print("> 1:" + rotY);
-				rotY = 1;
-				RotateObjectLocal(Vector3.Right, rotY);
-			}
-			else if (rotY == 1f)
-			{
-				RotateObjectLocal(Vector3.Up, rotX); // first rotate about Y
-				GD.Print("== 1:" + rotY);
-				rotY = 1;
-				RotateObjectLocal(Vector3.Right, rotY);
-			}
-			else if (rotY < -1f)
-			{
-				RotateObjectLocal(Vector3.Up, rotX);
-				GD.Print("< -1:" + rotY);
-				rotY = -1;
-				RotateObjectLocal(Vector3.Right, rotY);
-			}
-			else if (rotY == -1f)
-			{
-				RotateObjectLocal(Vector3.Up, rotX); // first rotate about Y
-				GD.Print("== -1:" + rotY);
-				rotY = -1;
-				RotateObjectLocal(Vector3.Right, rotY);
-			}
-			else
-			{
-				RotateObjectLocal(Vector3.Up, rotX); // first rotate about Y
-				GD.Print(rotY);
-				RotateObjectLocal(Vector3.Right, rotY);
+				if (rotY > 1f)
+				{
+					RotateObjectLocal(Vector3.Up, rotX);
+					rotY = 1;
+					RotateObjectLocal(Vector3.Right, rotY);
+				}
+				else if (rotY == 1f)
+				{
+					RotateObjectLocal(Vector3.Up, rotX);
+					rotY = 1;
+					RotateObjectLocal(Vector3.Right, rotY);
+				}
+				else if (rotY < -1f)
+				{
+					RotateObjectLocal(Vector3.Up, rotX);
+					rotY = -1;
+					RotateObjectLocal(Vector3.Right, rotY);
+				}
+				else if (rotY == -1f)
+				{
+					RotateObjectLocal(Vector3.Up, rotX);
+					rotY = -1;
+					RotateObjectLocal(Vector3.Right, rotY);
+				}
+				else
+				{
+					RotateObjectLocal(Vector3.Up, rotX);
+					RotateObjectLocal(Vector3.Right, rotY);
+				}
 			}
 		}
+	}
+
+	private void OnExitMenuPressed()
+	{
+		var global = GetNode<Global>("/root/Global");
+		global.GotoScene("res://Scenes/"+levelNameMenu+".tscn");
 	}
 
 	// private void Die()

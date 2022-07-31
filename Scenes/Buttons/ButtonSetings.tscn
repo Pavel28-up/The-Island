@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="Setings" type="Button"]
+margin_left = 5.0
+margin_top = 106.0
+margin_right = 63.0
+margin_bottom = 126.0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+size_flags_stretch_ratio = 20.0
+text = "Setings"

@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="Button" type="Button"]
+margin_left = 9.0
+margin_top = 159.0
+margin_right = 60.0
+margin_bottom = 179.0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+size_flags_stretch_ratio = 20.0
+text = "  Exit  "

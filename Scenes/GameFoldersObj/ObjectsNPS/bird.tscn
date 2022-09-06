@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Obj/bird.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.0509804, 0.419608, 0.0666667, 1 )
+
+[node name="bird" type="Spatial"]
+transform = Transform( 0.175227, 0, 0, 0, 0.139838, 0, 0, 0, 0.298928, 0, 0, 0 )
+script = ExtResource( 1 )
+SPEED_PLANE = null
+ROT_PLANE = null
+WIDTH_PLANE = null
+DISANS_PLANE = null
+
+[node name="RigidBody" type="RigidBody" parent="."]
+
+[node name="Camera" type="Camera" parent="RigidBody"]
+transform = Transform( 5.70687, 0, 0, 0, 7.15113, 0, 0, 0, 3.34528, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+shape = SubResource( 1 )
+
+[node name="CSGSphere" type="CSGSphere" parent="RigidBody/CollisionShape"]
+transform = Transform( 1.10903, 0, 0, 0, 1.10735, 0, 0, 0, 1.62795, 0, 0, 0 )
+material = SubResource( 2 )

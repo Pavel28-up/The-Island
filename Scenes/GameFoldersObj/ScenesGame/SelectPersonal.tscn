@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/MenuGame/SelectPersonal.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/GameFoldersObj/Person/Sailor.tscn" type="PackedScene" id=2]
+
+[sub_resource type="ProceduralSky" id=1]
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+
+[sub_resource type="BoxShape" id=3]
+
+[node name="SelectPersonal" type="Node"]
+script = ExtResource( 1 )
+levelNameGame = "Game"
+levelNameMenu = "MenuGame"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
+transform = Transform( -0.751591, -0.655609, -0.0727107, -0.550342, 0.56248, 0.617041, -0.36364, 0.503779, -0.783565, 8.26867, 39.2569, 3.46507 )
+
+[node name="Camera" type="Camera" parent="WorldEnvironment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476757, 2.55144, 16.1128 )
+
+[node name="StaticBody" type="StaticBody" parent="WorldEnvironment"]
+transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 25, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WorldEnvironment/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="WorldEnvironment/StaticBody/CollisionShape"]
+
+[node name="Control" type="Control" parent="WorldEnvironment"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Back" type="Button" parent="WorldEnvironment/Control"]
+anchor_left = 0.046
+anchor_top = 0.963
+anchor_right = 0.046
+anchor_bottom = 0.963
+margin_top = -61.0
+margin_right = 167.0
+text = "Back"
+
+[node name="SelectGame" type="Button" parent="WorldEnvironment/Control"]
+anchor_left = 0.928
+anchor_top = 0.963
+anchor_right = 0.947
+anchor_bottom = 0.963
+margin_left = -167.0
+margin_top = -61.0
+text = "Select"
+
+[node name="Sailor" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49444, 1.00001, 13.2347 )
+
+[connection signal="pressed" from="WorldEnvironment/Control/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="WorldEnvironment/Control/SelectGame" to="." method="_on_SelectGame_pressed"]

@@ -1,0 +1,661 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/backpack.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/GameFoldersObj/Person/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/SphereObj.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/Aple.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sprite/cursor.png" type="Texture" id=6]
+[ext_resource path="res://CSGCylinder.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/UI.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/indicators.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/Mug.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/world.gd" type="Script" id=11]
+[ext_resource path="res://material/корабль.tres" type="Material" id=12]
+[ext_resource path="res://material/лестница.tres" type="Material" id=13]
+[ext_resource path="res://Scenes/GameFoldersObj/ObjectsNPS/bird.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/Old Beer Mug.fbx" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Dilog/Hint.tscn" type="PackedScene" id=16]
+
+[sub_resource type="BoxShape" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.345098, 0.898039, 0.780392, 0.466667 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 1, 1, 0.995386 )
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.996078, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.996078, 0.576471, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0.631373, 0.996078, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.513726, 0, 0.996078, 1 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0.32549, 0.32549, 0.643137, 1 )
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_color = Color( 1, 1, 1, 0 )
+metallic_texture_channel = 3
+roughness_texture_channel = 3
+distance_fade_mode = 1
+distance_fade_min_distance = 0.0
+distance_fade_max_distance = 10.0
+
+[sub_resource type="CylinderMesh" id=14]
+material = SubResource( 13 )
+
+[node name="game" type="Node"]
+script = ExtResource( 1 )
+sec = 4
+levelNameMenu = "MenuGame"
+
+[node name="world" type="Spatial" parent="."]
+script = ExtResource( 11 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="world"]
+transform = Transform( 1, 0, 0, 0, -0.184466, 0.982839, 0, -0.982839, -0.184466, 0, 50, 0 )
+
+[node name="Water" type="Area" parent="world"]
+transform = Transform( 10000, 0, 0, 0, 0.15, 0, 0, 0, 10000, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="world/Water"]
+shape = SubResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Water/CollisionShape"]
+material = SubResource( 4 )
+
+[node name="Player" parent="world" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4839, 5.108, -9.42378 )
+SPEED_MOVE = 5
+SPEED_JUMP = 5
+
+[node name="Spatial" type="Spatial" parent="world"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.23318, 0 )
+
+[node name="StaticBody2" type="StaticBody" parent="world/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.77081, 0.942969, -28.204 )
+
+[node name="CollisionShape10" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 2.52328, -1.10541 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape10"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape11" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 2.0666, -0.52088 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape11"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape12" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 1.60111, 0.266775 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape12"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape13" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 1.15015, 0.607601 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape13"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape14" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 0.750507, 1.14971 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape14"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape15" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 0.365945, 1.46198 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape15"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape16" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.07074, 1.85194 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape16"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape17" type="CollisionShape" parent="world/Spatial/StaticBody2"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.395647, 2.19337 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody2/CollisionShape17"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="StaticBody4" type="StaticBody" parent="world/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.79772, 0.942969, -28.204 )
+
+[node name="CollisionShape10" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 2.52328, -1.10541 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape10"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape11" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 2.0666, -0.52088 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape11"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape12" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 1.60111, 0.266775 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape12"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape13" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 1.15015, 0.607601 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape13"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape14" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 0.750507, 1.14971 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape14"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape15" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 0.365945, 1.46198 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape15"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape16" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.07074, 1.85194 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape16"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape17" type="CollisionShape" parent="world/Spatial/StaticBody4"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.395647, 2.19337 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody4/CollisionShape17"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="StaticBody5" type="StaticBody" parent="world/Spatial"]
+transform = Transform( 2.2921, 0, 0, 0, 1, 0, 0, 0, 1, 5.06227, -2.09424, -36.4286 )
+
+[node name="CollisionShape10" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 2.52328, -1.10541 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape10"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape11" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 2.0666, -0.52088 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape11"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape12" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 1.60111, 0.266775 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape12"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape13" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 1.15015, 0.607601 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape13"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape14" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 0.750507, 1.14971 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape14"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape15" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, 0.365945, 1.46198 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape15"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape16" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.07074, 1.85194 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape16"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape17" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.395647, 2.19337 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape17"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape18" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.0683331, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.739901, 2.75889 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape18"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="CollisionShape19" type="CollisionShape" parent="world/Spatial/StaticBody5"]
+transform = Transform( -8.86253e-10, 0, 1.62201, 0, 0.068333, 0, -0.408196, 0, -1.42742e-06, 0.443995, -0.97039, 3.39231 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody5/CollisionShape19"]
+transform = Transform( 1, 0, 2.27374e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 13 )
+
+[node name="StaticBody" type="StaticBody" parent="world/Spatial"]
+transform = Transform( 10, 0, 0, 0, 0.5, 0, 0, 0, 30, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="world/Spatial/StaticBody"]
+shape = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody/CollisionShape"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="world/Spatial/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.27254, 0, -7.11625, -0.266349 )
+shape = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody/CollisionShape2"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="world/Spatial/StaticBody"]
+transform = Transform( 0.0100531, 0, 0, 0, 5.1038, 0, 0, 0, 1.27254, 0.994249, -2.57241, -0.268113 )
+shape = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody/CollisionShape3"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="world/Spatial/StaticBody"]
+transform = Transform( 0.0100531, 0, 0, 0, 5.1038, 0, 0, 0, 1.27254, -1.00145, -2.57241, -0.268113 )
+shape = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody/CollisionShape4"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape5" type="CollisionShape" parent="world/Spatial/StaticBody"]
+transform = Transform( 0.998413, 0, 0, 0, 5.1038, 0, 0, 0, 0.00451007, -0.00465183, -2.57241, -1.5352 )
+shape = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody/CollisionShape5"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape6" type="CollisionShape" parent="world/Spatial/StaticBody"]
+transform = Transform( 0.998413, 0, 0, 0, 5.1038, 0, 0, 0, 0.00451007, -0.00465183, -2.57241, 0.99738 )
+shape = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody/CollisionShape6"]
+material = ExtResource( 12 )
+
+[node name="StaticBody3" type="StaticBody" parent="world/Spatial"]
+
+[node name="CollisionShape2" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( 0.1, 0, 0, 0, 1.5, 0, 0, 0, 9.17844, 9.9484, 2.03824, -37.003 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape2"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( 0.1, 0, 0, 0, 1.5, 0, 0, 0, 9.17844, -10.0322, 2.03823, -36.9901 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape3"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( -2.18557e-09, 0, 4, 0, 1.5, 0, -0.15, 0, -5.24537e-07, -6.07378, 2.03824, -29.8007 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape4"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape5" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( -2.18557e-09, 0, 4, 0, 1.5, 0, -0.15, 0, -5.24537e-07, 6.00063, 2.03824, -29.8007 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape5"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape6" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( -4.51333e-10, -6.19517, 0, 0.0917285, -2.40575e-06, 0, 0, 0, 3.97447, -3.78839, 0.410459, -33.9772 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape6"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape7" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( -7.27564e-10, -9.98683, 0, 0.0917285, -2.40575e-06, 0, 0, 0, 4.05425, 0.175033, 0.414686, -41.9967 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape7"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape8" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( -5.41721e-09, 0, 9.91451, 0, 1.5, 0, -0.15, 0, -5.24537e-07, -0.021208, 2.03824, -46.0206 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape8"]
+material = ExtResource( 12 )
+
+[node name="CollisionShape9" type="CollisionShape" parent="world/Spatial/StaticBody3"]
+transform = Transform( -7.27564e-10, -9.98683, 0, 0.0917285, -2.40575e-06, 0, 0, 0, 8.06422, 0.0655425, 3.4819, -37.7062 )
+shape = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="world/Spatial/StaticBody3/CollisionShape9"]
+material = ExtResource( 12 )
+
+[node name="Aple5" parent="world" instance=ExtResource( 5 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.914543, 1.32253, 8.11343 )
+
+[node name="Aple2" parent="world" instance=ExtResource( 5 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 4.3845, 1.32253, 8.11343 )
+
+[node name="CSGCylinder" parent="world" instance=ExtResource( 7 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 4.3845, 1.32253, 9.23793 )
+
+[node name="Aple3" parent="world" instance=ExtResource( 5 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 4.3845, 1.32253, 10.1525 )
+
+[node name="Aple" parent="world" instance=ExtResource( 5 )]
+
+[node name="backpack" parent="world" instance=ExtResource( 2 )]
+transform = Transform( 0.172606, 0, 0, 0, 0.35533, 0, 0, 0, 0.12603, 5.9873, 1.58124, 0 )
+
+[node name="SphereObj2" parent="world/backpack" instance=ExtResource( 4 )]
+label = "Pack"
+counMax = 6
+on_remove = true
+on_remove_parent = true
+pack_item = {
+"count": 1,
+"desc": "",
+"icon": "icon",
+"key": "Pack",
+"label": "Pack"
+}
+
+[node name="ui" type="Control" parent="world"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+script = ExtResource( 8 )
+secondsToFood = 9600.0
+secondsToWater = 5760.0
+secondsToHealth = 50000.0
+secondsFood = 259200.0
+secondsWater = 144000.0
+
+[node name="indicators" type="Panel" parent="world/ui"]
+anchor_left = 0.703
+anchor_top = 0.712
+anchor_right = 0.986
+anchor_bottom = 0.971
+margin_right = -6.10352e-05
+margin_bottom = -3.05176e-05
+script = ExtResource( 9 )
+
+[node name="health" type="ProgressBar" parent="world/ui/indicators"]
+margin_left = 33.0
+margin_top = 5.0
+margin_right = 283.0
+margin_bottom = 19.0
+grow_horizontal = 0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_styles/fg = SubResource( 7 )
+step = 1.0
+percent_visible = false
+
+[node name="food" type="ProgressBar" parent="world/ui/indicators"]
+margin_left = 33.0
+margin_top = 39.0
+margin_right = 283.0
+margin_bottom = 53.0
+grow_horizontal = 0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_styles/fg = SubResource( 8 )
+percent_visible = false
+
+[node name="water" type="ProgressBar" parent="world/ui/indicators"]
+margin_left = 33.0
+margin_top = 76.0
+margin_right = 283.0
+margin_bottom = 90.0
+grow_horizontal = 0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_styles/fg = SubResource( 9 )
+percent_visible = false
+
+[node name="mana" type="ProgressBar" parent="world/ui/indicators"]
+margin_left = 33.0
+margin_top = 110.0
+margin_right = 283.0
+margin_bottom = 124.0
+grow_horizontal = 0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_styles/fg = SubResource( 10 )
+percent_visible = false
+
+[node name="Message" type="Label" parent="world/ui"]
+anchor_left = 0.095
+anchor_top = 0.797
+anchor_right = 0.662
+anchor_bottom = 0.919
+margin_top = -14.0
+
+[node name="cell" type="TextureRect" parent="world/ui"]
+modulate = Color( 1, 1, 1, 0.415686 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.5
+margin_top = -2.5
+margin_right = 2.5
+margin_bottom = 2.5
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 1
+
+[node name="label" type="Label" parent="world/ui/cell"]
+margin_left = -183.0
+margin_top = 25.0
+margin_right = 185.0
+margin_bottom = 106.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+max_lines_visible = 50
+
+[node name="label2" type="Label" parent="world/ui/cell"]
+margin_left = -183.0
+margin_top = 25.0
+margin_right = 185.0
+margin_bottom = 106.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+max_lines_visible = 50
+
+[node name="dead" type="Panel" parent="world/ui"]
+pause_mode = 2
+visible = false
+modulate = Color( 1, 1, 1, 0.537255 )
+self_modulate = Color( 1, 0, 0, 0.537255 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="world/ui/dead"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 14.0
+
+[node name="menu" type="Button" parent="world/ui/dead"]
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 19.0
+margin_top = -50.0
+margin_right = 121.0
+margin_bottom = -24.0
+text = "Menu"
+
+[node name="ExitWindows" type="Button" parent="world/ui/dead"]
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -123.0
+margin_top = -46.0
+margin_right = -21.0
+margin_bottom = -18.0
+text = "Exit"
+
+[node name="hand" type="TextureRect" parent="world/ui"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -77.0
+margin_right = 76.0
+margin_bottom = -12.0
+expand = true
+
+[node name="Aple6" parent="world" instance=ExtResource( 5 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 5.57181, 0 )
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="world"]
+transform = Transform( 0.942693, 0, 0, 0, 1, 0, 0, 0, 1.10447, 0, 5.44211, -4.30668 )
+radius = 0.596142
+height = 0.355934
+material = SubResource( 12 )
+
+[node name="SphereObj" parent="world/CSGCylinder2" instance=ExtResource( 4 )]
+transform = Transform( -0.761552, 0, 0, 0, 0.499819, 0, 0, 0, 0.77277, 0, -0.0110002, -0.0539987 )
+label = "Water"
+pack_item = {
+"count": 1,
+"desc": "Drinking Water",
+"healt": 5.0,
+"hunger": 0.0,
+"icon": "",
+"key": "on_water",
+"label": "Water",
+"mass": 0.0,
+"massMax": 10.0,
+"thirst": 5.0,
+"type": "water"
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="world"]
+transform = Transform( 0.788984, 0, 0, 0, 0.463054, 0, 0, 0, 0.809837, -0.0316511, 5.20286, -4.36555 )
+mesh = SubResource( 14 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="Old Beer Mug" parent="world/MeshInstance" instance=ExtResource( 15 )]
+transform = Transform( 40.9002, 0, 0, 0, 30.3667, 0, 0, 0, 46.4186, 0.0401163, -0.798184, 0.0520191 )
+
+[node name="bird3" parent="world" instance=ExtResource( 14 )]
+transform = Transform( -0.00137037, 0, 0.0258307, 0, 0.00273448, 0, -0.00520283, 0, -0.00680355, -4.31286, 13.1179, -14.8807 )
+SPEED_PLANE = 10.0
+ROT_PLANE = 0.5
+WIDTH_PLANE = 1.0
+DISANS_PLANE = 15.0
+
+[node name="bird2" parent="world" instance=ExtResource( 14 )]
+transform = Transform( -0.018758, 0, 0.0707441, 0, 0.0195547, 0, -0.0243086, 0, -0.0545906, -6.68687, 8.51286, 1.58067 )
+SPEED_PLANE = 10.0
+ROT_PLANE = 0.5
+WIDTH_PLANE = 1.0
+DISANS_PLANE = 36.0
+
+[node name="bird" parent="world" instance=ExtResource( 14 )]
+transform = Transform( 0.175227, 0, 0, 0, 0.139838, 0, 0, 0, 0.298928, -4.67485, 9.72584, -25.3509 )
+SPEED_PLANE = 10.0
+ROT_PLANE = 0.5
+WIDTH_PLANE = 1.0
+DISANS_PLANE = 20.0
+
+[node name="Mug" parent="world" instance=ExtResource( 10 )]
+transform = Transform( 0.0238277, 0, 0, 0, 0.0286372, 0, 0, 0, 0.0225306, -5.05192, 6.07488, -7.91843 )
+
+[node name="Hint" parent="world" instance=ExtResource( 16 )]
+
+[connection signal="pressed" from="world/ui/dead/menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="world/ui/dead/ExitWindows" to="." method="_on_ExitWindows_pressed"]
+
+[editable path="world/Player"]
+[editable path="world/bird2"]

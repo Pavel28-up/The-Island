@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/GameFoldersObj/ScenesMenu/activSlot.tscn" type="PackedScene" id=1]
+
+[node name="activ_slots" type="NinePatchRect"]
+anchor_left = 0.122
+anchor_top = 0.824
+anchor_right = 0.744
+anchor_bottom = 0.96
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+margin_left = 278.0
+margin_right = 343.0
+margin_bottom = 65.0
+size_flags_horizontal = 6
+columns = 9
+
+[node name="activSlot" parent="ScrollContainer/GridContainer" instance=ExtResource( 1 )]

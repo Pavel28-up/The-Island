@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/Old Beer Mug.fbx" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/SphereObj.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CylinderShape" id=1]
+
+[node name="Mug" type="Area"]
+
+[node name="Old Beer Mug" parent="." instance=ExtResource( 1 )]
+transform = Transform( 46.6736, 0, 0, 0, 34.5083, 0, 0, 0, 45.8465, 0, -1.01947, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="SphereObj" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1.06058, 0, 0, 0, 1, 0, -0.00766087, 0 )
+label = "Mug"
+on_remove_parent = true
+pack_item = {
+"count": 1,
+"desc": "Empty Mug",
+"healt": 0.0,
+"hunger": 0.0,
+"icon": "mug",
+"key": "on_mug",
+"label": "mug",
+"mass": 0.1,
+"massMax": 10.0,
+"thirst": 0.0,
+"type": ""
+}

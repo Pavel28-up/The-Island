@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/GameFoldersObj/Obj/SphereObj.tscn" type="PackedScene" id=2]
+
+[node name="CSGCylinder" type="CSGCylinder"]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 4.3845, 1.32253, 10.1525 )
+
+[node name="SphereObj" parent="." instance=ExtResource( 2 )]
+label = "Pick"
+on_remove_parent = true
+pack_item = {
+"count": 1,
+"desc": "",
+"healt": 0.0,
+"hunger": 0.0,
+"icon": "icon",
+"key": "on_pick",
+"label": "Pick",
+"mass": 1.5,
+"massMax": 10.0,
+"type": "weapon"
+}

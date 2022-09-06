@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scenes/Buttons/ButtonExit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Buttons/ButtonGame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Buttons/ButtonSetings.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Buttons/ButtonLoadGame.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Island.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/MenuGame/MenuGame.gd" type="Script" id=6]
+
+[sub_resource type="ProceduralSky" id=2]
+
+[sub_resource type="Environment" id=1]
+background_mode = 2
+background_sky = SubResource( 2 )
+auto_exposure_enabled = true
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.205992, 0.209315, 0.205992 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.0156863, 0.207843, 0.964706, 0.4 )
+
+[sub_resource type="BoxShape" id=5]
+
+[node name="MenuGame" type="Node"]
+script = ExtResource( 6 )
+levelName = "SelectPersonal"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Area" type="Area" parent="WorldEnvironment"]
+transform = Transform( 10000, 0, 0, 0, 1, 0, 0, 0, 10000, 0, -1.03085, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WorldEnvironment/Area"]
+shape = SubResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="WorldEnvironment/Area/CollisionShape"]
+material = SubResource( 4 )
+
+[node name="Island2" type="Area" parent="WorldEnvironment"]
+transform = Transform( 100, 0, 0, 0, 5, 0, 0, 0, 100, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WorldEnvironment/Island2"]
+shape = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="WorldEnvironment/Island2/CollisionShape"]
+
+[node name="Island" type="Spatial" parent="WorldEnvironment"]
+script = ExtResource( 5 )
+speed = 0.1
+
+[node name="Camera" type="Camera" parent="WorldEnvironment/Island"]
+transform = Transform( 1, 0, 0, 0, 0.991137, 0.132845, 0, -0.132845, 0.991137, 0, 46.6729, 400 )
+far = 8192.0
+
+[node name="Control" type="Control" parent="WorldEnvironment"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Buttons" type="VBoxContainer" parent="WorldEnvironment/Control"]
+anchor_left = 0.765
+anchor_top = 0.103
+anchor_right = 0.991
+anchor_bottom = 0.84
+margin_left = 81.64
+margin_top = 115.2
+margin_right = -80.7841
+margin_bottom = -119.0
+size_flags_horizontal = 4
+
+[node name="Game" parent="WorldEnvironment/Control/Buttons" instance=ExtResource( 2 )]
+margin_left = 5.0
+margin_right = 63.0
+size_flags_stretch_ratio = 0.0
+text = " Game "
+
+[node name="LoadGame" parent="WorldEnvironment/Control/Buttons" instance=ExtResource( 4 )]
+margin_top = 24.0
+margin_bottom = 44.0
+size_flags_stretch_ratio = 0.0
+
+[node name="Setings" parent="WorldEnvironment/Control/Buttons" instance=ExtResource( 3 )]
+margin_top = 48.0
+margin_bottom = 68.0
+size_flags_stretch_ratio = 0.0
+
+[node name="Exit" parent="WorldEnvironment/Control/Buttons" instance=ExtResource( 1 )]
+margin_left = 4.0
+margin_top = 72.0
+margin_right = 63.0
+margin_bottom = 92.0
+text = "   Exit   "
+
+[connection signal="pressed" from="WorldEnvironment/Control/Buttons/Game" to="." method="_on_Game_pressed"]
+[connection signal="pressed" from="WorldEnvironment/Control/Buttons/Exit" to="." method="_on_Exit_pressed"]
